@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ pet.name }}'s Details</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='pet_details.css') }}">
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <h1>Pet Care System</h1>
+            <ul>
+                <li><a href="{{ url_for('list_pets') }}" class="btn-secondary">Pets List</a></li>
+                <!-- Add other navigation links as needed -->
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div class="container">
+            <h1 class="page-title">{{ pet.name }}'s Details</h1>
+            
+            <div class="pet-details">
+                <p><strong>Breed:</strong> {{ pet.breed }}</p>
+                <p><strong>Date of Birth:</strong> {{ pet.birthdate.strftime('%Y-%m-%d') }}</p>
+                <p><strong>Age:</strong> {{ pet.calculate_age() }} years</p> <!-- Use method for age calculation -->
+            </div>
+
+            <h2 class="section-title">Vet Visits</h2>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Weight</th>
+                            <th>Notes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for visit in vetvisit %}
+                            <tr>
+                                <td>{{ visit.visit_date.strftime('%Y-%m-%d') }}</td>
+                                <td>{{ visit.weight }} kg</td>
+                                <td>{{ visit.notes }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+                <h2 class="section-title">Medications</h2>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Medicine</th>
+                            <th>Dosage</th>
+                            <th>Frequency</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for med in medicine %}
+                            <tr>
+                                
+                                <td>{{ med.medicine_name }}</td>
+                                <td>{{ med.dosage }}</td>
+                                <td>{{ med.frequency }}</td>
+                                <td>{{ med.start_date.strftime('%Y-%m-%d') }}</td>
+                                <td>{{ med.end_date.strftime('%Y-%m-%d') }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+
+                <h2 class="section-title">{{ pet.name }}'s Notes</h2>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Note</th>
+                            <th>Note Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for note in notes %}
+                            <tr>
+                                
+                                <td>{{ note.note_text }}</td>
+                                <td>{{ note.note_date.strftime('%Y-%m-%d') }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+                <br>
+
+            <a href="{{ url_for('list_pets') }}" class="btn btn-primary">Back to Pets List</a>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2024 Pet Care System. All rights reserved.</p>
+    </footer>
+</body>
+</html>

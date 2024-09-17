@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="container">
+                <h1>Pet Care</a></h1>
+                <div class="menu-icon">
+                    <span>&#9776;</span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="container">
+            <div class="login-form">
+                <h2>Login</h2>
+                <form method="POST" action="{{ url_for('login') }}">
+                    {{ form.hidden_tag() }}
+                    <div class="form-group">
+                        {{ form.username.label }}
+                        {{ form.username() }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.password.label }}
+                        {{ form.password() }}
+                    </div>
+                    {{ form.submit(class='btn-primary') }}
+                </form>
+                <p>Don't have an account? <a href="{{ url_for('register') }}" class="btn-secondary">Register here</a></p>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; {{ current_year }} Your Website. All rights reserved.</p>
+    </footer>
+</body>
+</html>

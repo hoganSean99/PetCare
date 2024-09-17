@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Pet Details</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='add_details.css') }}">
+</head>
+<body>
+    <h1>Add Details for {{ pet.name }}</h1>
+    
+    <form action="" method="POST">
+        <!-- Dropdown to select detail type -->
+        <label for="detail_type">Choose Detail Type:</label>
+        <select name="detail_type" id="detail_type">
+            <option value="vet_visit">Vet Visit</option>
+            <option value="medicine">Medicine</option>
+            <option value="note">Note</option>
+        </select>
+
+        <!-- Vet Visit Form -->
+        <div id="vet_visit_form" class="detail_form">
+            <h3>Vet Visit Details</h3>
+            <label for="visit_date">Visit Date:</label>
+            <input type="date" name="visit_date">
+            <label for="notes">Notes:</label>
+            <input type="text" name="notes">
+            <label for="weight">Weight (kg):</label>
+            <input type="number" step="0.1" name="weight">
+        </div>
+
+        <!-- Medicine Form -->
+        <div id="medicine_form" class="detail_form" style="display:none;">
+            <h3>Medicine Details</h3>
+            <label for="medicine_name">Medicine Name:</label>
+            <input type="text" name="medicine_name">
+            <label for="dosage">Dosage:</label>
+            <input type="text" name="dosage">
+            <label for="frequency">Frequency:</label>
+            <input type="text" name="frequency">
+            <label for="start_date">Start Date:</label>
+            <input type="date" name="start_date">
+            <label for="end_date">End Date:</label>
+            <input type="date" name="end_date">
+        </div>
+
+        <!-- Notes Form -->
+        <div id="note_form" class="detail_form" style="display:none;">
+            <h3>Notes</h3>
+            <label for="note_text">Note:</label>
+            <textarea name="note_text" rows="4"></textarea>
+            <label for="note_date">Date:</label>
+            <input type="date" name="note_date">
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit">Add Details</button>
+    </form>
+
+    <script>
+        // jQuery to toggle between forms based on the dropdown selection
+        $('#detail_type').on('change', function() {
+            $('.detail_form').hide();
+            let selected = $(this).val();
+            if (selected === 'vet_visit') {
+                $('#vet_visit_form').show();
+            } else if (selected === 'medicine') {
+                $('#medicine_form').show();
+            } else if (selected === 'note') {
+                $('#note_form').show();
+            }
+        });
+
+        // Initialize the first form as visible
+        $('#vet_visit_form').show();
+    </script>
+</body>
+</html>

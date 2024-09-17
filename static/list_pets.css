@@ -1,0 +1,335 @@
+/* General Styles */
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    background-color: #f4f4f4;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+}
+
+html, body {
+    height: 100%;
+}
+
+header {
+    background: #2c3e50;
+    color: #ecf0f1;
+    padding: 1rem 0;
+}
+
+main {
+    flex: 1;
+}
+
+nav .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+nav h1 {
+    margin: 0;
+    font-size: 2rem;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+nav .menu-icon {
+    display: none;
+    font-size: 2rem;
+    cursor: pointer;
+    color: #ecf0f1;
+}
+
+nav ul li {
+    margin-left: 20px;
+}
+
+nav ul li a {
+    color: #ecf0f1;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+nav ul li a:hover {
+    text-decoration: underline;
+}
+
+/* Main Content */
+main {
+    padding: 2rem 1rem;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+h2 {
+    margin-bottom: 1.5rem;
+    font-size: 2rem;
+}
+
+/* Table Styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+thead {
+    background: #2c3e50;
+    color: #fff;
+}
+
+thead th {
+    padding: 1rem;
+    text-align: left;
+}
+
+tbody td {
+    padding: 1rem;
+    border-bottom: 1px solid #ddd;
+}
+
+tbody tr:nth-child(even) {
+    background: #f9f9f9;
+}
+
+tbody tr:hover {
+    background: #f1f1f1;
+}
+
+/* Button Styling */
+.btn-secondary {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    color: #fff;
+    background-color: #3498db;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    margin-right: 0.5rem;
+    transition: background-color 0.3s;
+    margin-bottom: 2%;
+}
+
+.btn-secondary:hover {
+    background-color: #2980b9;
+}
+
+.btn-danger {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    color: #fff;
+    background-color: #e74c3c;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    transition: background-color 0.3s;
+}
+
+.btn-danger:hover {
+    background-color: #c0392b;
+}
+
+.btn-trash {
+    color: red;
+    text-decoration: none;
+    font-size: 20px;
+}
+
+.btn-trash:hover {
+    color: darkred;
+}
+
+/* Action Content Styling */
+.action-content {
+    display: none;
+    padding: 1rem;
+    background-color: #fff;
+    border-top: 1px solid #ddd;
+}
+
+.show-actions {
+    display: block;
+}
+
+/* Expand Button Styling */
+.expand-button {
+    display: none; /* Hide by default on desktop */
+    width: 100%;
+    padding: 0.5rem;
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    text-align: center;
+    position: relative;
+}
+
+.expand-button:hover {
+    background-color: #2980b9;
+}
+
+/* Footer Styling */
+footer {
+    background: #2c3e50;
+    color: #ecf0f1;
+    text-align: center;
+    padding: 1rem;
+    margin-top: auto; /* Push footer to the bottom */
+}
+
+footer p {
+    margin: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    nav h1 {
+        font-size: 1.5rem;
+    }
+
+    nav .menu-icon {
+        display: block;
+    }
+
+    nav ul {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        background-color: #2c3e50;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        z-index: 1;
+    }
+
+    nav ul.active {
+        display: flex;
+    }
+
+    nav ul li {
+        margin: 10px 0;
+    }
+
+    nav ul li a {
+        font-size: 1.2rem;
+        padding: 1rem;
+        width: 100%;
+        text-align: center;
+    }
+
+    table {
+        display: block;
+    }
+
+    thead {
+        display: none;
+    }
+
+    tbody, tr {
+        display: block;
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+
+    td {
+        display: block;
+        position: relative;
+        padding: 0.5rem;
+        text-align: right;
+        border-bottom: 1px solid #ddd;
+    }
+
+    td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 0;
+        width: 50%;
+        padding: 0.5rem;
+        font-weight: bold;
+        text-align: left;
+    }
+
+    td:last-child {
+        text-align: center;
+    }
+
+    /* Hide Actions Column for mobile */
+    .desktop-only {
+        display: none;
+    }
+
+    /* Show Expand Button and hide actions by default */
+    .expand-button {
+        display: block; /* Show the expand button only in mobile view */
+    }
+
+    .action-content {
+        display: none; /* Hide by default */
+    }
+
+    .show-actions {
+        display: block;
+    }
+}
+
+/* Mobile phones */
+@media (max-width: 480px) {
+    .dropdown-content {
+        min-width: 100%;
+        box-shadow: none;
+    }
+
+    .dropdown-toggle {
+        width: 100%;
+        padding: 0.5rem;
+        border: none;
+        background-color: #3498db;
+        color: #fff;
+    }
+
+    .dropdown-toggle:hover {
+        background-color: #2980b9;
+    }
+
+    .actions {
+        display: none; /* Hide actions for mobile */
+    }
+}
+
+/* Desktop Actions */
+@media (min-width: 769px) {
+    .desktop-only {
+        display: table-cell; /* Show actions in desktop view */
+    }
+
+    .expand-button {
+        display: none; /* Hide expand button in desktop view */
+    }
+}

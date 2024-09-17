@@ -1,0 +1,195 @@
+from flask import Flask, render_template, request, redirect, url_for
+from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime
+import os
+
+# Load environment variables from .env file (if using)
+from dotenv import load_dotenv
+load_dotenv()
+
+app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'oracle+cx_oracle://shogan:meg2203@localhost:1521/?service_name=PETDEV'
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'fallback_secret_key')
+db = SQLAlchemy(app)
+
+# Define the Pet class matching the SHOGAN.PETS table
+class Pet(db.Model):
+    __tablename__ = 'PETS'
+    __table_args__ = {'schema': 'SHOGAN'}
+    
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(20), nullable=False)
+    birthdate = db.Column(db.Date, nullable=False)
+    pet_type = db.Column(db.String(20), nullable=False)
+    
+    vet_visits = db.relationship('VetVisit', back_populates='pet')
+    medicines = db.relationship('Medicine', back_populates='pet', cascade="all, delete-orphan")
+    notes = db.relationship('PetNote', back_populates='pet')
+    
+
+    
+    # Calculate age
+    def calculate_age(self):
+        today = datetime.today().date()
+        age = today.year - self.birthdate.year - ((today.month, today.day) < (self.birthdate.month, self.birthdate.day))
+        return age
+
+# Define the VetVisit class matching the SHOGAN.VETVISIT table
+class VetVisit(db.Model):
+    __tablename__ = 'VETVISIT'
+    __table_args__ = {'schema': 'SHOGAN'}
+    
+    id = db.Column(db.Integer, primary_key=True)  # ID NUMBER(5)
+    pet_id = db.Column(db.Integer, db.ForeignKey('SHOGAN.PETS.id'), nullable=False)  # PET_ID NUMBER(5) (FK to SHOGAN.PETS)
+    visit_date = db.Column(db.Date, nullable=False)  # VISIT_DATE DATE
+    weight = db.Column(db.Float, nullable=False)  # WEIGHT FLOAT
+    summary = db.Column(db.String(50), nullable=False)  # SUMMARY VARCHAR2(50)
+    notes = db.Column(db.String(50), nullable=True)  # NOTES VARCHAR2(50)
+
+    # Set up relationship with Pet class
+    pet = db.relationship('Pet', backref='visits')
+    
+class Medicine(db.Model):
+    __tablename__ = 'MEDICINES'
+    __table_args__ = {'schema': 'SHOGAN'}
+    
+    id = db.Column(db.Integer, primary_key=True)
+    pet_id = db.Column(db.Integer, db.ForeignKey('SHOGAN.PETS.id'), nullable=False)  # Ensure this references the correct column
+    medicine_name = db.Column(db.String(50), nullable=False)
+    dosage = db.Column(db.String(50))
+    frequency = db.Column(db.String(100))
+    start_date = db.Column(db.Date, nullable=False)
+    end_date = db.Column(db.Date, nullable=False)
+    notes = db.Column(db.String(100))
+    
+    pet = db.relationship('Pet', back_populates='medicines')
+    
+class PetNote(db.Model):
+    __tablename__ = 'PET_NOTES'
+    __table_args__ = {'schema': 'SHOGAN'}
+    
+    id = db.Column(db.Integer, primary_key=True)
+    pet_id = db.Column(db.Integer, db.ForeignKey('SHOGAN.PETS.id'), nullable=False)
+    note_date = db.Column(db.Date, nullable=False)
+    note_text = db.Column(db.String(500), nullable=False)  # Adjust length as needed
+    
+    # Define relationships
+    pet = db.relationship('Pet', back_populates='notes')
+
+
+@app.route('/')
+def index():
+    pets = Pet.query.all()
+    return render_template('index.html', pets=pets)
+
+@app.route('/add_pet', methods=['GET', 'POST'])
+def add_pet():
+    if request.method == 'POST':
+        name = request.form['name']
+        birthdate_str = request.form['birthdate']
+        pet_type = request.form['pet_type']
+    
+        # Convert birthdate from string to date
+        birthdate = datetime.strptime(birthdate_str, '%Y-%m-%d').date()
+    
+        new_pet = Pet(name=name, birthdate=birthdate, pet_type=pet_type)
+        db.session.add(new_pet)
+        db.session.commit()
+    
+        return redirect(url_for('list_pets'))
+        #return redirect(url_for('index'))
+    return render_template('add_pet.html')
+
+@app.route('/pet/<int:pet_id>')
+def pet_details(pet_id):
+    pet = Pet.query.get_or_404(pet_id)
+    return render_template('pet_details.html', pet=pet)
+
+@app.route('/pet/<int:pet_id>/add_visit', methods=['GET', 'POST'])
+def add_visit(pet_id):
+    if request.method == 'POST':
+        visit_date = request.form['visit_date']
+        weight = request.form['weight']
+        summary = request.form['summary']
+        notes = request.form['notes']
+        new_visit = VetVisit(pet_id=pet_id, visit_date=datetime.strptime(visit_date, '%Y-%m-%d').date(), weight=float(weight), summary=summary, notes=notes)
+        db.session.add(new_visit)
+        db.session.commit()
+        return redirect(url_for('pet_details', pet_id=pet_id))
+    return render_template('add_visit.html')
+
+@app.route('/pets', methods=['GET'])
+def list_pets():
+    pets = Pet.query.all()
+    return render_template('list_pets.html', pets=pets)
+
+@app.route('/pets/<int:pet_id>', methods=['GET'])
+def view_pet(pet_id):
+    # Retrieve the pet details using pet_id
+    pet = Pet.query.get_or_404(pet_id)
+    
+    # Pass the entire pet object to the template, not just pet_id
+    return render_template('view_pet.html', pet=pet)
+
+@app.route('/edit_pet/<int:pet_id>', methods=['GET', 'POST'])
+def edit_pet(pet_id):
+    pet = Pet.query.get_or_404(pet_id)
+    
+    if request.method == 'POST':
+        pet.name = request.form['name']
+        pet.birthdate = datetime.strptime(request.form['birthdate'], '%Y-%m-%d').date()
+        pet.pet_type = request.form['pet_type']
+        
+        db.session.commit()
+        return redirect(url_for('list_pets'))
+    
+    return render_template('edit_pet.html', pet=pet)
+
+@app.route('/delete_pet/<int:pet_id>', methods=['GET'])
+def delete_pet(pet_id):
+    pet = Pet.query.get_or_404(pet_id)
+    db.session.delete(pet)
+    db.session.commit()
+    return redirect(url_for('list_pets'))
+
+@app.route('/add_details/<int:pet_id>', methods=['GET', 'POST'])
+def add_details(pet_id):
+    pet = Pet.query.get_or_404(pet_id)
+    
+    if request.method == 'POST':
+        detail_type = request.form['detail_type']
+        
+        # Handle adding vet visit details
+        if detail_type == 'vet_visit':
+            visit_date = request.form['visit_date']
+            notes = request.form['notes']
+            weight = request.form['weight']
+            new_visit = VetVisit(pet_id=pet_id, visit_date=datetime.strptime(visit_date, '%Y-%m-%d').date(), notes=notes, weight=float(weight))
+            db.session.add(new_visit)
+            db.session.commit()
+        
+        # Handle adding medicines
+        elif detail_type == 'medicine':
+            name = request.form['medicine_name']
+            dosage = request.form['dosage']
+            frequency = request.form['frequency']
+            start_date = request.form['start_date']
+            end_date = request.form['end_date']
+            new_medicine = Medicine(pet_id=pet_id, medicine_name=name, dosage=dosage, frequency=frequency, start_date=datetime.strptime(start_date, '%Y-%m-%d').date(), end_date=datetime.strptime(end_date, '%Y-%m-%d').date())
+            db.session.add(new_medicine)
+            db.session.commit()
+        
+        # Handle adding notes
+        elif detail_type == 'note':
+            note_text = request.form['note_text']
+            note_date = request.form['note_date']
+            new_note = PetNote(pet_id=pet_id, note_text=note_text, note_date=datetime.strptime(note_date, '%Y-%m-%d').date())
+            db.session.add(new_note)
+            db.session.commit()
+        
+        return redirect(url_for('pet_details', pet_id=pet_id)) 
+    
+    return render_template('add_details.html', pet=pet)
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000, debug=True)

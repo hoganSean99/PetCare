@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='register.css') }}">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="container">
+                <h1>PetDev</h1>
+                <ul>
+                    <li><a href="{{ url_for('login') }}">Login</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <div class="register-container">
+            <form class="register-form" method="POST" action="{{ url_for('register') }}">
+                {{ form.hidden_tag() }}
+                <h2>Register</h2>
+                <div class="form-group">
+                    {{ form.username.label }}
+                    {{ form.username() }}
+                </div>
+                <div class="form-group">
+                    {{ form.email.label }}
+                    {{ form.email() }}
+                </div>
+                <div class="form-group">
+                    {{ form.password.label }}
+                    {{ form.password() }}
+                </div>
+                <div class="form-group">
+                    {{ form.confirm_password.label }}
+                    {{ form.confirm_password() }}
+                </div>
+                <button type="submit">{{ form.submit.label }}</button>
+            </form>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2024 PetDev</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Pet</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/view_pet.css') }}">
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <h1><a href="{{ url_for('index') }}">Pet Management</a></h1>
+            <ul>
+                <li><a href="{{ url_for('list_pets') }}">View Pets</a></li>
+                <li><a href="{{ url_for('add_pet') }}">Add Pet</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <div class="container">
+            <h2>Pet Details</h2>
+            <div class="pet-details">
+                <h3>{{ pet.name }}</h3>
+                <p><strong>Type:</strong> {{ pet.pet_type }}</p>
+                <p><strong>Birthdate:</strong> {{ pet.birthdate }}</p>
+            </div>
+
+            <div class="medicines">
+                <h3>Medicines</h3>
+                {% if pet.medicines %}
+                    <ul>
+                        {% for medicine in pet.medicines %}
+                            <li>
+                                <strong>{{ medicine.medicine_name }}</strong><br>
+                                Dosage: {{ medicine.dosage }}<br>
+                                Frequency: {{ medicine.frequency }}<br>
+                                Start Date: {{ medicine.start_date }}<br>
+                                End Date: {{ medicine.end_date }}<br>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>No medicines listed.</p>
+                {% endif %}
+            </div>
+
+     <!--     <div class="notes">
+                <h3>Notes</h3>
+                {% if pet.notes %}
+                    <ul>
+                        {% for note in pet.notes %}
+                            <li>
+                                <strong>Date:</strong> {{ note.note_date }}<br>
+                                <strong>Note:</strong> {{ note.note_text }}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>No notes available.</p>
+                {% endif %}
+            </div>-->
+
+            <div class="actions">
+                <a href="{{ url_for('edit_pet', pet_id=pet.id) }}" class="btn">Edit Pet</a>
+                <a href="{{ url_for('delete_pet', pet_id=pet.id) }}" class="btn" onclick="return confirm('Are you sure you want to delete {{ pet.name }}?');">Delete Pet</a>
+                <a href="{{ url_for('list_pets') }}" class="btn">Back to List</a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Pet Management. All rights reserved.</p>
+    </footer>
+</body>
+</html>
