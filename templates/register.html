@@ -3,17 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='LogoAppIcon.png') }}">
     <title>Register</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='register.css') }}">
 </head>
 <body>
     <header>
-        <nav>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container">
-                <h1>PetDev</h1>
-                <ul>
-                    <li><a href="{{ url_for('login') }}">Login</a></li>
-                </ul>
+                <!-- Logo -->
+                <a class="navbar-brand" href="{{ url_for('index') }}">
+                    <img src="{{ url_for('static', filename='PetCareLogo_transPar.png') }}" alt="Pet Care Logo" width="160" height="60">
+                </a>
+    
+                <!-- Menu items -->
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('login') }}">Login
+                            </a>
+                        </li>
+                    </ul>
+
             </div>
         </nav>
     </header>
@@ -45,5 +56,8 @@
     <footer>
         <p>&copy; 2024 PetDev</p>
     </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
 </body>
 </html>

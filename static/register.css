@@ -22,57 +22,29 @@ main {
     align-items: center;
 }
 
-/* Header styling */
-header {
-    background: #2c3e50;
-    color: #ecf0f1;
-    padding: 1rem 0;
+.navbar-nav {
+    text-align: right;
 }
 
-nav .container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 1rem;
+.navbar-nav .nav-item {
+    display: block;
 }
 
-nav h1 {
-    margin: 0;
-    font-size: 2rem;
-    text-align: center;
-    font-family: "adventure" /* Apply a nice font */
+.navbar-nav .nav-link {
+    padding: 10px;
+    text-align: center; /* Ensure the text itself is aligned right */
 }
 
-nav ul {
-    list-style: none;
-    display: flex;
-    flex-wrap: wrap; /* Wrap items if needed */
+/* Optional: Add padding or margins to the right for better aesthetics */
+.navbar-nav .nav-link {
+    margin-right: 0;
+    padding-right: 20px;
 }
 
-/* Add menu icon for mobile */
-nav .menu-icon {
-    display: none;
-    font-size: 2rem;
-    cursor: pointer;
-    color: #ecf0f1;
+/* Center the navbar-brand */
+.navbar-brand {
+    margin-right: auto; /* Ensure the logo stays on the left */
 }
-
-nav ul li {
-    margin-left: 20px;
-}
-
-nav ul li a {
-    color: #ecf0f1;
-    text-decoration: none;
-    font-weight: bold;
-}
-
-nav ul li a:hover {
-    text-decoration: underline;
-}
-
 /* Hero section */
 .hero {
     background: url('{{ url_for("static", filename="hero_bg.jpg") }}') no-repeat center center/cover;
@@ -240,6 +212,7 @@ footer p {
     min-height: 100vh; /* Full viewport height */
     background-color: #f4f4f4;
     padding: 1rem;
+    width:100%;
 }
 
 .register-form {

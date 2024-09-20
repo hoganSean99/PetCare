@@ -21,48 +21,29 @@ main {
     flex: 1;
 }
 
-/* Header and Navigation */
-header {
-    background: #2c3e50;
-    color: #ecf0f1;
-    padding: 1rem 0;
+/* Align navbar items to the right in mobile view */
+.navbar-nav {
+    text-align: right;
 }
 
-nav .container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 1rem;
+.navbar-nav .nav-item {
+    display: block;
 }
 
-nav h1 {
-    margin: 0;
-    font-size: 2rem;
+.navbar-nav .nav-link {
+    padding: 10px;
+    text-align: center; /* Ensure the text itself is aligned right */
 }
 
-nav ul {
-    list-style: none;
-    display: flex;
+/* Optional: Add padding or margins to the right for better aesthetics */
+.navbar-nav .nav-link {
+    margin-right: 0;
+    padding-right: 20px;
 }
 
-nav ul li {
-    margin-left: 20px;
-}
-
-nav ul li a {
-    color: #ecf0f1;
-    text-decoration: none;
-    font-weight: bold;
-}
-
-nav ul li a.active {
-    color: #e74c3c;
-}
-
-nav ul li a:hover {
-    text-decoration: underline;
+/* Center the navbar-brand */
+.navbar-brand {
+    margin-right: auto; /* Ensure the logo stays on the left */
 }
 
 /* Main Content */
@@ -151,3 +132,60 @@ footer {
 footer p {
     margin: 0;
 }
+
+.btn-danger {
+    padding: 0.5rem 1rem;
+    color: #fff;
+    background-color: #e74c3c;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    transition: background-color 0.3s;
+}
+
+.btn-danger:hover {
+    background-color: #c0392b;
+}
+
+/* General navbar item spacing */
+.navbar-nav .nav-item {
+    margin-bottom: 10px; /* Adds spacing between the items */
+}
+
+/* Extra spacing for mobile view */
+@media (max-width: 991.98px) {
+    .navbar-nav .nav-link {
+        padding: 15px 20px; /* Increase padding for touch-friendly design */
+        border-bottom: 1px solid #eaeaea; /* Optional: adds a bottom border to separate items */
+        line-height: 1.5; /* Increases line height for more breathing space */
+    }
+
+    /* Optional: Add some extra space between the logo and the first link */
+    .navbar-brand {
+        margin-bottom: 20px;
+    }
+}
+
+/* Spacing for the dropdown toggle button */
+.navbar-toggler {
+    margin-left: auto; /* Keep it aligned to the right */
+}
+
+/* Make sure the logo stays to the left */
+.navbar-brand {
+    margin-right: auto;
+}
+
+/* Optional: Style the logout button distinctly */
+.btn-logout {
+    background-color: #dc3545; /* Bootstrap danger red */
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    margin-left: 10px; /* Adds space between the buttons */
+}
+
+.btn-logout:hover {
+    background-color: #c82333;
+}
+

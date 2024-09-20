@@ -1,11 +1,11 @@
 /* General Styles */
-body, h1, h2, h3, p, ul {
+body, html {
     margin: 0;
     padding: 0;
-}
-
-html, body {
     height: 100%;
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
 }
 
 body {
@@ -17,52 +17,43 @@ body {
     flex-direction: column;
 }
 
+html, body {
+    height: 100%;
+}
+
+/* header {
+    background: #2c3e50;
+    color: #ecf0f1;
+    padding: 1rem 0;
+} */
+
 main {
     flex: 1;
 }
 
-/* Header and Navigation */
-header {
-    background: #2c3e50;
-    color: #ecf0f1;
-    padding: 1rem 0;
+/* Align navbar items to the right in mobile view */
+.navbar-nav {
+    text-align: right;
 }
 
-nav .container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 1rem;
+.navbar-nav .nav-item {
+    display: block;
 }
 
-nav h1 {
-    margin: 0;
-    font-size: 2rem;
+.navbar-nav .nav-link {
+    padding: 10px;
+    text-align: center; /* Ensure the text itself is aligned right */
 }
 
-nav ul {
-    list-style: none;
-    display: flex;
+/* Optional: Add padding or margins to the right for better aesthetics */
+.navbar-nav .nav-link {
+    margin-right: 0;
+    padding-right: 20px;
 }
 
-nav ul li {
-    margin-left: 20px;
-}
-
-nav ul li a {
-    color: #ecf0f1;
-    text-decoration: none;
-    font-weight: bold;
-}
-
-nav ul li a.active {
-    color: #e74c3c;
-}
-
-nav ul li a:hover {
-    text-decoration: underline;
+/* Center the navbar-brand */
+.navbar-brand {
+    margin-right: auto; /* Ensure the logo stays on the left */
 }
 
 /* Main Content */
@@ -75,59 +66,126 @@ main {
     margin: 0 auto;
 }
 
-/* Page Title */
-.page-title {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-    color: #2c3e50;
-}
-
-/* Section Title */
-.section-title {
-    margin-top: 2rem;
-    margin-bottom: 1rem;
-    font-size: 1.5rem;
-    color: #2c3e50;
+h2 {
+    margin-bottom: 1.5rem;
+    font-size: 2rem;
 }
 
 /* Table Styling */
 table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 1rem;
+    background: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    overflow: hidden;
 }
 
-table th, table td {
-    padding: 0.75rem;
-    border: 1px solid #ddd;
+thead {
+    background: #2c3e50;
+    color: #fff;
+}
+
+thead th {
+    padding: 1rem;
     text-align: left;
 }
 
-table th {
-    background-color: #2c3e50;
-    color: #ecf0f1;
+tbody td {
+    padding: 1rem;
+    border-bottom: 1px solid #ddd;
 }
 
-table td {
-    background-color: #fff;
+tbody tr:nth-child(even) {
+    background: #f9f9f9;
+}
+
+tbody tr:hover {
+    background: #f1f1f1;
 }
 
 /* Button Styling */
-a.btn, button.btn {
+.btn-secondary {
     display: inline-block;
     padding: 0.5rem 1rem;
     color: #fff;
+    background-color: #3498db;
     text-decoration: none;
     border-radius: 5px;
-    font-size: 1rem;
+    font-size: 0.9rem;
+    margin-right: 0.5rem;
+    transition: background-color 0.3s;
+    margin-bottom: 2%;
+}
+
+.btn-secondary:hover {
+    background-color: #2980b9;
+}
+
+.btn-danger {
+    padding: 0.5rem 1rem;
+    color: #fff;
+    background-color: #e74c3c;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 0.9rem;
     transition: background-color 0.3s;
 }
 
-a.btn-primary, button.btn-primary {
-    background-color: #3498db;
+.btn-danger:hover {
+    background-color: #c0392b;
 }
 
-a.btn-primary:hover, button.btn-primary:hover {
+.btn-trash {
+    color: red;
+    text-decoration: none;
+    font-size: 20px;
+}
+
+.btn-trash:hover {
+    color: darkred;
+}
+
+.btn-logout {
+    color: #fff;
+    background-color: #dc3545; /* Red color for the logout button */
+    padding: 10px 15px;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.btn-logout:hover {
+    background-color: #c82333; /* Darker red on hover */
+}
+
+/* Action Content Styling */
+.action-content {
+    display: none;
+    padding: 1rem;
+    background-color: #fff;
+    border-top: 1px solid #ddd;
+}
+
+.show-actions {
+    display: block;
+}
+
+/* Expand Button Styling */
+.expand-button {
+    display: none; /* Hide by default on desktop */
+    width: 100%;
+    padding: 0.5rem;
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    text-align: center;
+    position: relative;
+}
+
+.expand-button:hover {
     background-color: #2980b9;
 }
 
@@ -142,4 +200,176 @@ footer {
 
 footer p {
     margin: 0;
+}
+
+/* General navbar item spacing */
+.navbar-nav .nav-item {
+    margin-bottom: 10px; /* Adds spacing between the items */
+}
+
+/* Extra spacing for mobile view */
+@media (max-width: 991.98px) {
+    .navbar-nav .nav-link {
+        padding: 15px 20px; /* Increase padding for touch-friendly design */
+        border-bottom: 1px solid #eaeaea; /* Optional: adds a bottom border to separate items */
+        line-height: 1.5; /* Increases line height for more breathing space */
+    }
+
+    /* Optional: Add some extra space between the logo and the first link */
+    .navbar-brand {
+        margin-bottom: 20px;
+    }
+}
+
+/* Spacing for the dropdown toggle button */
+.navbar-toggler {
+    margin-left: auto; /* Keep it aligned to the right */
+}
+
+/* Make sure the logo stays to the left */
+.navbar-brand {
+    margin-right: auto;
+}
+
+/* Optional: Style the logout button distinctly */
+.btn-logout {
+    background-color: #dc3545; /* Bootstrap danger red */
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    margin-left: 10px; /* Adds space between the buttons */
+}
+
+.btn-logout:hover {
+    background-color: #c82333;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+
+    table {
+        display: block;
+        width: 100%;
+    }
+
+    thead {
+        display: none; /* Hide the table header */
+    }
+
+    tbody, tr {
+        display: block;
+        width: 100%;
+        margin-bottom: 1rem;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 0.5rem;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: relative;
+        padding: 0.75rem 1rem;
+        text-align: right;
+        border-bottom: 1px solid #ddd;
+        word-wrap: break-word; /* Allow words to wrap to the next line */
+        white-space: normal; /* Allow text to wrap */
+        flex-wrap: wrap; /* Ensure content can expand to fit */
+    }
+
+    /* Add the heading text before each data cell */
+    td::before {
+        content: attr(data-label); /* Use the data-label attribute */
+        flex: 1 1 35%; /* Adjust percentage if you want more space for the label */
+        font-weight: bold;
+        text-align: left;
+        padding-right: 1rem;
+        white-space: nowrap; /* Ensure the label does not wrap */
+    }
+
+    td:last-child {
+        border-bottom: 0;
+        text-align: center;
+    }
+
+    /* Adjust flex for content to grow as needed */
+    td {
+        text-align: right;
+        flex: 1 1 65%; /* Give the content more space compared to the label */
+        padding-left: 0; /* No extra padding needed since flex handles spacing */
+    }
+
+    /* Allow content to expand vertically */
+    td span {
+        white-space: normal; /* Allow content to wrap to the next line */
+        word-wrap: break-word; /* Break words if necessary */
+        display: block;
+    }
+
+    /* Mobile action button should be block level and full width */
+    .mobile-only a {
+        display: block;
+        width: 100%;
+        margin: 0.5rem 0;
+        text-align: center;
+    }
+
+
+
+
+
+    /* Hide Actions Column for mobile */
+    .desktop-only {
+        display: none;
+    }
+
+    /* Show Expand Button and hide actions by default */
+    .expand-button {
+        display: block; /* Show the expand button only in mobile view */
+    }
+
+    .action-content {
+        display: none; /* Hide by default */
+    }
+
+    .show-actions {
+        display: block;
+    }
+}
+
+/* Mobile phones */
+@media (max-width: 480px) {
+    .dropdown-content {
+        min-width: 100%;
+        box-shadow: none;
+    }
+
+    .dropdown-toggle {
+        width: 100%;
+        padding: 0.5rem;
+        border: none;
+        background-color: #3498db;
+        color: #fff;
+    }
+
+    .dropdown-toggle:hover {
+        background-color: #2980b9;
+    }
+
+    .actions {
+        display: none; /* Hide actions for mobile */
+    }
+}
+
+/* Desktop Actions */
+@media (min-width: 769px) {
+    .desktop-only {
+        display: table-cell; /* Show actions in desktop view */
+    }
+
+    .expand-button {
+        display: none; /* Hide expand button in desktop view */
+    }
 }

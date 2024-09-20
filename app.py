@@ -179,29 +179,47 @@ def delete_pet(pet_id):
     db.session.commit()
     return redirect(url_for('list_pets'))
 
-@app.route('/delete_visit/<int:visit_id>', methods=['GET'])
+@app.route('/delete_visit/<int:pet_id>/<int:visit_id>', methods=['GET'])
 @login_required
-def delete_visit(visit_id):
+def delete_visit(pet_id, visit_id):
+    # Fetch the pet and the specific medication
+    pet = Pet.query.get_or_404(pet_id)
     visit = VetVisit.query.get_or_404(visit_id)
+
+    # Ensure the medication belongs to the correct p
+    # Delete the medication
     db.session.delete(visit)
     db.session.commit()
-    return redirect(url_for('list_pets'))
 
-@app.route('/delete_med/<int:med_id>', methods=['GET'])
+    return redirect(url_for('pet_details', pet_id=pet_id))
+
+@app.route('/delete_med/<int:pet_id>/<int:med_id>', methods=['GET'])
 @login_required
-def delete_med(med_id):
+def delete_med(pet_id, med_id):
+    # Fetch the pet and the specific medication
+    pet = Pet.query.get_or_404(pet_id)
     med = Medicine.query.get_or_404(med_id)
+
+    # Ensure the medication belongs to the correct p
+    # Delete the medication
     db.session.delete(med)
     db.session.commit()
-    return redirect(url_for('list_pets'))
 
-@app.route('/delete_note/<int:note_id>', methods=['GET'])
+    return redirect(url_for('pet_details', pet_id=pet_id))
+
+@app.route('/delete_note/<int:pet_id>/<int:note_id>', methods=['GET'])
 @login_required
-def delete_note(note_id):
+def delete_note(pet_id, note_id):
+    # Fetch the pet and the specific medication
+    pet = Pet.query.get_or_404(pet_id)
     note = PetNote.query.get_or_404(note_id)
+
+    # Ensure the medication belongs to the correct p
+    # Delete the medication
     db.session.delete(note)
     db.session.commit()
-    return redirect(url_for('list_pets'))
+
+    return redirect(url_for('pet_details', pet_id=pet_id))
 
 @app.route('/add_details/<int:pet_id>', methods=['GET', 'POST'])
 @login_required

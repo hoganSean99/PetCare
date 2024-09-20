@@ -3,19 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='LogoAppIcon.png') }}">
+
     <title>Edit Pet</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='edit_pet.css') }}">
 </head>
 <body>
     <header>
-        <nav>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container">
-                <h1>Pet Care App</h1>
-                <ul>
-                    <li><a href="{{ url_for('index') }}">Home</a></li>
-                    <li><a href="{{ url_for('list_pets') }}">View Pets</a></li>
-                    <li><a href="{{ url_for('add_pet') }}">Add New Pet</a></li>
-                </ul>
+                <!-- Logo -->
+                <a class="navbar-brand" href="{{ url_for('index') }}">
+                    <img src="{{ url_for('static', filename='PetCareLogo_transPar.png') }}" alt="Pet Care Logo" width="160" height="60">
+                </a>
+                <!-- Menu icon for mobile view -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+    
+                <!-- Menu items -->
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('index') }}">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('add_pet') }}">New Pet</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('list_pets') }}">My Pets</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link btn btn-danger text-white" href="{{ url_for('logout') }}">Logout</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </nav>
     </header>
@@ -45,5 +68,9 @@
             <p>&copy; 2024 Pet Care App. All rights reserved.</p>
         </div>
     </footer>
+
+        <!-- Include Bootstrap JS (for navbar functionality) -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
 </body>
 </html>
